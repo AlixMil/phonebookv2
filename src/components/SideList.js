@@ -23,7 +23,7 @@ export default function SideList(props) {
     >
       <List>
         {['Main Page', 'Settings'].map((text, index) => (
-          <ListItem button key={text}>
+          <ListItem onClick={() => props.toggleDrawer(false)} button key={text}>
             <ListItemIcon>{index === 0 ? <HomeOutlinedIcon />  : <SettingsApplicationsOutlinedIcon />}</ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
@@ -31,7 +31,7 @@ export default function SideList(props) {
       </List>
       <Divider />
       <List>
-      <ListItem button>
+          <ListItem button>
             <ListItemIcon><ExploreOutlinedIcon /></ListItemIcon>
             <ListItemText primary={'About AlixMil'}/>
           </ListItem>
