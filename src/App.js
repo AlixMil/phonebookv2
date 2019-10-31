@@ -4,6 +4,7 @@ import Header from './components/HeaderDisplay/Header'
 import AddPaper from './components/Add/AddPaper'
 import ContactList from './components/ListDisplay/ContactList'
 
+
 function App() {
   const [state, setState] = useState({
       contacts: [
@@ -61,37 +62,86 @@ function App() {
   }
 
   const handleChange = (index, nameInp, numberInp) => {
-    setState(state => {
-      const res = state.contacts.map(( { name, number, updDate } , id) => {
-        if (id === index) {
-          return {
-            name: nameInp,
-            number: numberInp,
-            updDate: new Date()
+    if (nameInp && numberInp) {
+      setState(state => {
+        const res = state.contacts.map(( { name, number, updDate } , id) => {
+          if (id === index) {
+            return {
+              name: nameInp,
+              number: numberInp,
+              updDate: new Date()
+            }
           }
-        }
+          return {
+              name: name,
+              number: number,
+              updDate: new Date()
+          }
+        })
         return {
-            name: name,
-            number: number,
-            updDate: new Date()
+          contacts: res,
+          isSearch: state.isSearch,
+          search: state.search
         }
       })
-      return {
-        contacts: res,
-        isSearch: state.isSearch,
-        search: state.search
-      }
-    })
+    } else if (nameInp) {
+      setState(state => {
+        const res = state.contacts.map(( { name, number, updDate } , id) => {
+          if (id === index) {
+            return {
+              name: nameInp,
+              number: number,
+              updDate: new Date()
+            }
+          }
+          return {
+              name: name,
+              number: number,
+              updDate: new Date()
+          }
+        })
+        return {
+          contacts: res,
+          isSearch: state.isSearch,
+          search: state.search
+        }
+      })
+    } else if (numberInp) {
+      setState(state => {
+        const res = state.contacts.map(( { name, number, updDate } , id) => {
+          if (id === index) {
+            return {
+              name: name,
+              number: numberInp,
+              updDate: new Date()
+            }
+          }
+          return {
+              name: name,
+              number: number,
+              updDate: new Date()
+          }
+        })
+        return {
+          contacts: res,
+          isSearch: state.isSearch,
+          search: state.search
+        }
+      })
+    }
+    
   }
 
   const handleAdd = (name, number) => {
-    setState(state => {
-      state.contacts.push({name: name, number: number, updDate: undefined}) 
-      return {
-      contacts: state.contacts,
-      isSearch: state.isSearch,
-      search: state.search
-    }})
+    if (name.trim() && number.trim()) {
+      setState(state => {
+        state.contacts.push({name: name, number: number, updDate: undefined}) 
+        return {
+        contacts: state.contacts,
+        isSearch: state.isSearch,
+        search: state.search
+      }})
+    }
   }
 
   return (

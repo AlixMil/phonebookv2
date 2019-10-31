@@ -30,7 +30,7 @@ export default function Options(props) {
       <div className={classes.paper}>
           <h2 id="simple-modal-title">Options</h2>
           <p id="simple-modal-description">
-            Вы можете настроить что угодно, но пока ничего.
+            <h1>Options</h1>
           </p> 
         </div>
 

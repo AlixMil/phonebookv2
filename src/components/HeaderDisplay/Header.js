@@ -11,8 +11,8 @@ import Tooltip from '@material-ui/core/Tooltip'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    // display: 'flex',
-    // justifyContent: "space-between",
+    display: 'flex',
+    justifyContent: "center",
     // width: '100%',
     // flexGrow: 1
   },
@@ -66,7 +66,7 @@ export default function Header(props) {
               </Drawer>
             </IconButton>
           </Tooltip>
-          <Typography variant="h4" className={classes.title}>
+          <Typography variant="h5" className={classes.title}>
             Phone Book
           </Typography>
           <Search />

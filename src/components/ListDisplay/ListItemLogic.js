@@ -9,11 +9,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
 import Divider from '@material-ui/core/Divider'
 import TextField from '@material-ui/core/TextField'
-import { IconButton } from '@material-ui/core'
 import CreateIcon from '@material-ui/icons/Create';
 import Tooltip from '@material-ui/core/Tooltip'
 import { makeStyles } from '@material-ui/core'
 import Fab from '@material-ui/core/Fab'
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 
 const useStyles = makeStyles(theme => ({
   fab: {
@@ -28,38 +28,26 @@ const useStyles = makeStyles(theme => ({
 
 export default function ListItemLogic(props) {
   const [state, setState] = useState({
-    local: {
-      name: '',
-      number: '',
-      updDate: ''
-    },
+    name: '',
+    number: '',
+    updDate: '',
     isExpanded: false
   })
 
   const classes = useStyles()
 
-  const fieldOne = useRef(), fieldTwo = useRef()
-
-  const handleDate = () => {
-    return new Date()
-  }
-
   const handleChange = ({ name, value }) => {
     name === 'name' ? setState(state => {
       return {
-      local: {
-        name: value,
-        number: state.local.number,
-        updDate: handleDate()
-      },
+      name: value,
+      number: state.number,
+      updDate: new Date(),
       isExpanded: state.isExpanded }
     }) : setState(state => {
       return {
-        local: {
-          name: state.local.name,
-          number: value,
-          updDate: handleDate()
-        },
+        name: state.name,
+        number: value,
+        updDate: new Date(),
         isExpanded: state.isExpanded
       }
     })
@@ -68,25 +56,22 @@ export default function ListItemLogic(props) {
   const handleExpand = () => {
     setState(state => {
       return {
-        local: state.local,
+        name: state.name,
+        number: state.number,
+        updDate: state.updDate,
         isExpanded: !state.isExpanded
       }
     })
   }
 
-  const handleReset = () => {
-    fieldOne.current.value = ''
-    fieldTwo.current.value = ''
-  }
-
   const buttonRender = () => {
-    if (state.local.name || state.local.number) {
+    if (state.name || state.number) {
       return (
       <Tooltip title="Change contact">
         <Fab 
           onClick={() => {
-            handleReset()
-            props.change(props.index, state.local.name, state.local.number)
+            props.change(props.index, state.name, state.number)
+            setState(state => ({ name: '', number: '', updDate: new Date(), isExpanded: !state.isExpanded}))
           }}
           color="primary"
           className={classes.fab}
@@ -113,35 +98,34 @@ export default function ListItemLogic(props) {
   return (
               <>
               <DividerLi head={props.element}/>
-              
               <ListItem className={props.classes.listItem} button>
                 <ExpansionPanel expanded={state.isExpanded} className={props.classes.listItem}>
                   <ExpansionPanelSummary onClick={() => handleExpand()}>
                       <ListItemText primary={props.element.name}/>
                       <ListItemText label='number'primary={props.element.number}/>
-                      <Tooltip title="Open contact">
-                      <ExpandMoreIcon className={props.classes.expand}/>
-
-                      </Tooltip>
+                        {
+                          state.isExpanded ? <Tooltip title="Close contact"><ExpandLessIcon className={props.classes.expand} /></Tooltip> : <Tooltip title="Open contact"><ExpandMoreIcon className={props.classes.expand}/></Tooltip>
+                        }
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails className={props.classes.expansionDetails}>
                     <form>
                       <Divider />
                       <TextField 
                         onChange={(e) => handleChange(e.target)}
+                        value={state.name}
                         label='name'
                         name="name"
                       />
                       <TextField 
                         onChange={(e) => handleChange(e.target)}
                         label='number'
+                        value={state.number}
                         name="number"
                       />
                     </form>
                     {
                       buttonRender()
                     }
-                    
                   </ExpansionPanelDetails>
                 </ExpansionPanel>
               </ListItem>
