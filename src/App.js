@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import './App.css';
-import Header from './components/Header'
-import ContactList from './components/ContactList'
+import Header from './components/HeaderDisplay/Header'
+import AddPaper from './components/Add/AddPaper'
+import ContactList from './components/ListDisplay/ContactList'
 
 function App() {
   const [state, setState] = useState({
@@ -27,7 +28,7 @@ function App() {
         updDate: undefined
       },
       {
-        name: 'Kristi',
+        name: 'Nastin',
         number: '89771337044',
         updDate: undefined
       },
@@ -38,6 +39,7 @@ function App() {
       }
     ],
     isSearch: false,
+    isOpenAdd: false,
     search: []})
 
   const handleDelete = index => {
@@ -58,10 +60,45 @@ function App() {
       })
   }
 
+  const handleChange = (index, nameInp, numberInp) => {
+    setState(state => {
+      const res = state.contacts.map(( { name, number, updDate } , id) => {
+        if (id === index) {
+          return {
+            name: nameInp,
+            number: numberInp,
+            updDate: new Date()
+          }
+        }
+        return {
+            name: name,
+            number: number,
+            updDate: new Date()
+        }
+      })
+      return {
+        contacts: res,
+        isSearch: state.isSearch,
+        search: state.search
+      }
+    })
+  }
+
+  const handleAdd = (name, number) => {
+    setState(state => {
+      state.contacts.push({name: name, number: number, updDate: undefined}) 
+      return {
+      contacts: state.contacts,
+      isSearch: state.isSearch,
+      search: state.search
+    }})
+  }
+
   return (
     <div className="App">
       <Header search={handleSearch} />
-      <ContactList delete={handleDelete} data={state}/>
+      <AddPaper handleAdd={handleAdd} />
+      <ContactList change={handleChange} delete={handleDelete} data={state}/>
     </div>
   );
 }
