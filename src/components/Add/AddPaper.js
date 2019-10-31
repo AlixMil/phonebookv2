@@ -12,6 +12,9 @@ import Fab from '@material-ui/core/Fab'
 const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(3, 2),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
   },
   fab: {
     margin: theme.spacing(1),
@@ -41,17 +44,21 @@ export default function AddPaper(props) {
   return (
     <Paper className={classes.root}>
       
-        <Typography variant="h5" component="h3">
-          Add Contact
-        </Typography>
+        {/* <Typography variant="h4" component="h3"> */}
+          {/* Add Contact */}
+        {/* </Typography> */}
         <Typography >
           <TextField 
+            variant="filled"
+            autoComplete
             label='name'
             name='name'
             value={state.name}
             onChange={(e) => handleChange(e.target)}
           />
           <TextField 
+            autoComplete
+            variant="filled"
             name='number'
             label='number'
             value={state.number}

@@ -84,7 +84,10 @@ export default function ListItemLogic(props) {
       return (
       <Tooltip title="Delete">
         <Fab 
-          onClick={() => props.delete(props.index)}
+          onClick={() => {
+            props.delete(props.index)
+            setState(state => ({ name: '', number: '', updDate: new Date(), isExpanded: !state.isExpanded}))
+          }}
           color="secondary"
           className={classes.fab}
           >
@@ -97,7 +100,9 @@ export default function ListItemLogic(props) {
 
   return (
               <>
-              <DividerLi head={props.element}/>
+              {/* <DividerLi head={props.element}/>
+             */}
+             
               <ListItem className={props.classes.listItem} button>
                 <ExpansionPanel expanded={state.isExpanded} className={props.classes.listItem}>
                   <ExpansionPanelSummary onClick={() => handleExpand()}>

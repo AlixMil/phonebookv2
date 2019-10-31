@@ -67,8 +67,8 @@ function App() {
         const res = state.contacts.map(( { name, number, updDate } , id) => {
           if (id === index) {
             return {
-              name: nameInp,
-              number: numberInp,
+              name: nameInp[0].toUpperCase() + nameInp.slice(1),
+              number: numberInp[0].toUpperCase() + numberInp.slice(1),
               updDate: new Date()
             }
           }
@@ -89,7 +89,7 @@ function App() {
         const res = state.contacts.map(( { name, number, updDate } , id) => {
           if (id === index) {
             return {
-              name: nameInp,
+              name: nameInp[0].toUpperCase() + nameInp.slice(1),
               number: number,
               updDate: new Date()
             }
@@ -112,7 +112,7 @@ function App() {
           if (id === index) {
             return {
               name: name,
-              number: numberInp,
+              number:  numberInp[0].toUpperCase() + numberInp.slice(1),
               updDate: new Date()
             }
           }
