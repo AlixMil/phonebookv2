@@ -3,8 +3,7 @@ import './App.css';
 import Header from './components/HeaderDisplay/Header'
 import AddPaper from './components/Add/AddPaper'
 import ContactList from './components/ListDisplay/ContactList'
-import * as fs from 'fs'
-// const fs = require('fs')
+import { saveAs } from 'file-saver'
 
 
 function App() {
@@ -146,14 +145,26 @@ function App() {
     }
   }
 
-  const handleImport = () => {
+  const handleImport = (json) => {
     console.log('import')
+    // console.log(JSON.parse(json)
+    setState(state => {
+      json.forEach((el, id) => {
+        state.contacts.push(json[id])
+      })
+      return {
+        contacts: state.contacts,
+        isSearch: state.isSearch,
+        search: state.search
+      }
+    })
   }
 
   const handleExport = () => {
     const collection = JSON.stringify(state.contacts)
     console.log(collection)
-    // fs.writeFileSync('writeJSON.json', collection)
+    let blob = new File([collection], {type: 'text/json;charset=utf-8'})
+    saveAs(blob, 'contacts' + ' ' + Date.now() + '.json')
   }
 
   return (

@@ -26,13 +26,22 @@ export default function SideList(props) {
         <ListItemText primary="Main Page" />
       </ListItem>
       <ListItem onClick={() => {
-          props.toggleOptions();
+          props.toggleImport();
           props.toggleDrawer();
         }} button>
         <ListItemIcon>
           <SettingsApplicationsOutlinedIcon />
         </ListItemIcon>
-        <ListItemText primary="Import | Export" />
+        <ListItemText primary="Import" />
+      </ListItem>
+      <ListItem onClick={() => {
+          props.export();
+          props.toggleDrawer();
+        }} button>
+        <ListItemIcon>
+          <SettingsApplicationsOutlinedIcon />
+        </ListItemIcon>
+        <ListItemText primary="Export" />
       </ListItem>
       
     </List>
