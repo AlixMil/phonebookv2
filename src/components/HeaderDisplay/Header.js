@@ -72,7 +72,7 @@ export default function Header(props) {
           <Search />
         </Toolbar>
       </AppBar>
-      <Options state={state} toggleOptions={toggleOptions} />
+      <Options import={props.import} export={props.export} state={state} toggleOptions={toggleOptions} />
     </div>
   );
 }

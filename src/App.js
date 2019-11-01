@@ -3,6 +3,8 @@ import './App.css';
 import Header from './components/HeaderDisplay/Header'
 import AddPaper from './components/Add/AddPaper'
 import ContactList from './components/ListDisplay/ContactList'
+import * as fs from 'fs'
+// const fs = require('fs')
 
 
 function App() {
@@ -144,9 +146,19 @@ function App() {
     }
   }
 
+  const handleImport = () => {
+    console.log('import')
+  }
+
+  const handleExport = () => {
+    const collection = JSON.stringify(state.contacts)
+    console.log(collection)
+    // fs.writeFileSync('writeJSON.json', collection)
+  }
+
   return (
     <div className="App">
-      <Header search={handleSearch} />
+      <Header import={handleImport} export={handleExport} search={handleSearch} />
       <AddPaper handleAdd={handleAdd} />
       <ContactList change={handleChange} delete={handleDelete} data={state}/>
     </div>

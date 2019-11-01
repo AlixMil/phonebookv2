@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal'
+import Modal from '@material-ui/core/Modal';
+import Button from '@material-ui/core/Button'
 
 export default function Options(props) {
   const useStyles = makeStyles(theme => ({
@@ -28,9 +29,10 @@ export default function Options(props) {
       onClose={() => props.toggleOptions()}
     >
       <div className={classes.paper}>
-          <h2 id="simple-modal-title">Options</h2>
+          <h2 id="simple-modal-title">Import | Export</h2>
           <p id="simple-modal-description">
-            <h1>Options</h1>
+            <Button variant='outlined' color='primary' onClick={props.export}>Export contacts</Button>
+            <Button variant='outlined' color='primary' onClick={props.import}>Import contacts</Button>
           </p> 
         </div>
 

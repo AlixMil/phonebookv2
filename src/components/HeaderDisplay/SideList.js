@@ -4,6 +4,9 @@ import { List, ListItem, ListItemIcon, ListItemText, Divider } from '@material-u
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import SettingsApplicationsOutlinedIcon from '@material-ui/icons/SettingsApplicationsOutlined';
 import ExploreOutlinedIcon from '@material-ui/icons/ExploreOutlined';
+
+
+
 export default function SideList(props) {
   const styles = makeStyles({
     list: {
@@ -13,13 +16,11 @@ export default function SideList(props) {
       width: 'auto'
     }
   });
-  // const toggleDrawer = bool => {
-  //   props.toggleDrawer(bool)
-  // }
+
   return (<div onClick={() => props.toggleDrawer()} className={styles.list}>
     <List>
       <ListItem onClick={() => props.toggleDrawer()} button>
-        <ListItemIcon>
+        <ListItemIcon>Options
           <HomeOutlinedIcon /> 
         </ListItemIcon>
         <ListItemText primary="Main Page" />
@@ -31,7 +32,7 @@ export default function SideList(props) {
         <ListItemIcon>
           <SettingsApplicationsOutlinedIcon />
         </ListItemIcon>
-        <ListItemText primary="Options" />
+        <ListItemText primary="Import | Export" />
       </ListItem>
       
     </List>
