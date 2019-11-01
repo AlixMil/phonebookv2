@@ -15,7 +15,7 @@ import { makeStyles } from '@material-ui/core'
 import Fab from '@material-ui/core/Fab'
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(theme => ({ // Styles
   fab: {
     margin: theme.spacing(1),
     width: '50px',
@@ -36,24 +36,34 @@ export default function ListItemLogic(props) {
 
   const classes = useStyles()
 
-  const handleChange = ({ name, value }) => {
-    name === 'name' ? setState(state => {
-      return {
-      name: value,
-      number: state.number,
-      updDate: new Date(),
-      isExpanded: state.isExpanded }
-    }) : setState(state => {
-      return {
-        name: state.name,
-        number: value,
+  const handleChange = (e) => { // Двусторонная привязка
+    if (e.name === 'name') {
+      setState(state => {
+        return {
+        name: e.value,
+        number: state.number,
         updDate: new Date(),
-        isExpanded: state.isExpanded
+        isExpanded: state.isExpanded }
+      })
+    } 
+    if (e.name === 'number') {
+      if (!isNaN(e.value)) { // Valid only Numbers input
+        setState(state => {
+          return {
+            name: state.name,
+            number: e.value,
+            updDate: new Date(),
+            isExpanded: state.isExpanded
+          }
+        })
+      } else {
+        e.setAttribute('error', true)
+        console.log(e)
       }
-    })
+    }
   }
 
-  const handleExpand = () => {
+  const handleExpand = () => { // Manipulate expanded (Открытие / закрытие)
     setState(state => {
       return {
         name: state.name,
@@ -64,7 +74,7 @@ export default function ListItemLogic(props) {
     })
   }
 
-  const buttonRender = () => {
+  const buttonRender = () => {  // Render BTN component
     if (state.name || state.number) {
       return (
       <Tooltip title="Change contact">
@@ -111,9 +121,9 @@ export default function ListItemLogic(props) {
                         {
                           state.isExpanded ? <Tooltip title="Close contact"><ExpandLessIcon className={props.classes.expand} /></Tooltip> : <Tooltip title="Open contact"><ExpandMoreIcon className={props.classes.expand}/></Tooltip>
                         }
-                  </ExpansionPanelSummary>
-                  <ExpansionPanelDetails className={props.classes.expansionDetails}>
-                    <form>
+                  </ExpansionPanelSummary> 
+                  <ExpansionPanelDetails className={props.classes.expansionDetails}> 
+                    <form> 
                       <Divider />
                       <TextField 
                         onChange={(e) => handleChange(e.target)}
@@ -123,8 +133,8 @@ export default function ListItemLogic(props) {
                       />
                       <TextField 
                         onChange={(e) => handleChange(e.target)}
-                        label='number'
                         value={state.number}
+                        label='number'
                         name="number"
                       />
                     </form>
