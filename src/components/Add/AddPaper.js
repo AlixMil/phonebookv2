@@ -11,10 +11,28 @@ import Fab from '@material-ui/core/Fab'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    padding: theme.spacing(3, 2),
+    // backgroundColor: 'grey',
+    
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center'
+  },
+  wrapper: {
+    margin: '14px 14px 0px 14px', 
+    paddingBottom: '20px',
+    display: 'block',
+    height: '100%',
+    width: '600px',
+    borderLeft: '2px solid #f5f1f0',
+    borderRight: '2px solid #f5f1f0',
+    borderTop: '2px solid #f5f1f0',
+    backgroundColor: 'white',
+    transition: '.4s all',
+    cursor: 'pointer',
+      '&:hover': {
+        backgroundColor: '#f5f1f0',
+      }, 
+    // padding: '8px'
   },
   fab: {
     margin: theme.spacing(1),
@@ -43,22 +61,25 @@ export default function AddPaper(props) {
 
   return (
     <Paper className={classes.root}>
-      
+      <div className={classes.wrapper}>
+
         {/* <Typography variant="h4" component="h3"> */}
           {/* Add Contact */}
         {/* </Typography> */}
         <Typography >
+          <h2>Add Contact</h2>
           <TextField 
-            variant="filled"
-            autoComplete
+            // variant="filled"
+            // helperText='Введите имя'
+            // error={true}
             label='name'
             name='name'
             value={state.name}
             onChange={(e) => handleChange(e.target)}
           />
           <TextField 
-            autoComplete
-            variant="filled"
+            // helperText='и номер телефона'
+            // variant="filled"
             name='number'
             label='number'
             value={state.number}
@@ -74,6 +95,7 @@ export default function AddPaper(props) {
           </Tooltip>
         </Typography>
         
+      </div>
     </Paper>
   )
 }

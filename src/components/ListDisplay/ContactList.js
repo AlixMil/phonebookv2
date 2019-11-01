@@ -12,13 +12,16 @@ import ListItemLogic from './ListItemLogic';
       backgroundColor: theme.palette.background.paper,
     },
     list: {
+      borderLeft: '2px solid #f5f1f0',
+      borderRight: '2px solid #f5f1f0',
+      borderBottom: '2px solid #f5f1f0',
     },
     dividerFullWidth: {
       margin: `2px 0 0 ${theme.spacing(2)}px`,
       textAlign: 'left',
     },
     dividerInset: {
-      margin: `2px 0 0 ${theme.spacing(9)}px`,
+      // margin: `2px 0 0 ${theme.spacing(9)}px`,
     },
     listItem: {
       width: '600px',

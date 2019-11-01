@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import SideList from "./SideList";
 import Search from './Search'
-import Options from './Options';
+import Import from './Import';
 import { makeStyles, fade } from '@material-ui/core/styles';
 import { Drawer, AppBar, Toolbar, Typography, IconButton } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -44,7 +44,7 @@ export default function Header(props) {
     })
   }
 
-  const toggleOptions = () => {
+  const toggleImport = () => {
     setState(state => {
       return {
         isOpenSide: state.isOpenSide,
@@ -62,7 +62,7 @@ export default function Header(props) {
             <IconButton onClick={() => toggleDrawer()} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
               <MenuIcon />
               <Drawer variant="temporary" open={state.isOpenSide}>
-                <SideList toggleOptions={toggleOptions} toggleDrawer={toggleDrawer}/> 
+                <SideList export={props.export} toggleImport={toggleImport} toggleDrawer={toggleDrawer}/> 
               </Drawer>
             </IconButton>
           </Tooltip>
@@ -72,7 +72,7 @@ export default function Header(props) {
           <Search />
         </Toolbar>
       </AppBar>
-      <Options import={props.import} export={props.export} state={state} toggleOptions={toggleOptions} />
+      <Import import={props.import} export={props.export} state={state} toggleImport={toggleImport} />
     </div>
   );
 }
