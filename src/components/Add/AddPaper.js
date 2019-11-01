@@ -11,8 +11,6 @@ import Fab from '@material-ui/core/Fab'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    // backgroundColor: 'grey',
-    
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center'

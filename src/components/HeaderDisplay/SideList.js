@@ -20,7 +20,7 @@ export default function SideList(props) {
   return (<div onClick={() => props.toggleDrawer()} className={styles.list}>
     <List>
       <ListItem onClick={() => props.toggleDrawer()} button>
-        <ListItemIcon>Options
+        <ListItemIcon>
           <HomeOutlinedIcon /> 
         </ListItemIcon>
         <ListItemText primary="Main Page" />
