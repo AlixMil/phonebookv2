@@ -40,6 +40,7 @@ export default function Import(props) {
       // console.log(JSON.parse(reader.result))
       // setState(({ file: reader.result }))
       props.import(JSON.parse(reader.result))
+      props.toggleImport()
     }
 
     reader.onerror = () => {
