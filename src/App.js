@@ -3,6 +3,7 @@ import './App.css';
 import Header from './components/HeaderDisplay/Header'
 import AddPaper from './components/Add/AddPaper'
 import ContactList from './components/ListDisplay/ContactList'
+import SwitchSort from './components/SwitchSort'
 import { saveAs } from 'file-saver'
 
 import SyncStore from './SyncStore'
@@ -12,15 +13,19 @@ function App() {
   const [state, setState] = useState({
     contacts: localStorage.data ? JSON.parse(localStorage.data) : [],
     isSearch: false,
-    isOpenAdd: false,
+    isSort: true,
     search: []
   })
 
   const handleDelete = index => {
     setState(state => { 
       SyncStore(state.contacts.filter((_, i) => i === index ? false : true))
-      return {contacts: state.contacts.filter((_, i) => i === index ? false : true),
-      search: state.search}
+      return {
+        contacts: state.contacts.filter((_, i) => i === index ? false : true),
+        search: state.search,
+        isSort: state.isSort,
+        isSearch: state.isSearch
+      }
     })
   }
 
@@ -30,7 +35,8 @@ function App() {
           return {
             contacts: state.contacts,
             isSearch: true,
-            search: state.contacts.filter(e => e.name.toLowerCase() === searchTerm.toLowerCase())
+            search: state.contacts.filter(e => e.name.toLowerCase() === searchTerm.toLowerCase()),
+            isSort: state.isSort
           }
       })
   }
@@ -55,7 +61,8 @@ function App() {
         return {
           contacts: res,
           isSearch: state.isSearch,
-          search: state.search
+          search: state.search,
+          isSort: state.isSort
         }
       })
       SyncStore(state.contacts)
@@ -79,7 +86,8 @@ function App() {
         return {
           contacts: res,
           isSearch: state.isSearch,
-          search: state.search
+          search: state.search,
+          isSort: state.isSort
         }
       })
     } else if (numberInp) {
@@ -102,7 +110,8 @@ function App() {
         return {
           contacts: res,
           isSearch: state.isSearch,
-          search: state.search
+          search: state.search,
+          isSort: state.isSort
         }
       })
       SyncStore(state.contacts)
@@ -116,7 +125,8 @@ function App() {
         return {
         contacts: state.contacts,
         isSearch: state.isSearch,
-        search: state.search
+        search: state.search,
+        isSort: state.isSort
       }})
       SyncStore(state.contacts)
     }
@@ -132,7 +142,8 @@ function App() {
       return {
         contacts: state.contacts,
         isSearch: state.isSearch,
-        search: state.search
+        search: state.search,
+        isSort: state.isSort
       }
     })
     SyncStore(state.contacts)
@@ -145,11 +156,21 @@ function App() {
     saveAs(blob, 'contacts' + ' ' + Date.now() + '.json')
   }
 
+  const handleChangeSort = (bool) => {
+    setState(state => ({
+      contacts: state.contacts,
+      isSearch: state.isSearch,
+      isSort: bool,
+      search: state.search
+    }))
+  }
+
   return (
     <div className="App">
       <Header import={handleImport} export={handleExport} search={handleSearch} />
       <AddPaper handleAdd={handleAdd} />
-      <ContactList change={handleChange} delete={handleDelete} data={state}/>
+      <ContactList isSort={state.isSort} change={handleChange} delete={handleDelete} data={state}/>
+      <SwitchSort isSort={state.isSort} changeSort={handleChangeSort}/>
     </div>
   );
 }
