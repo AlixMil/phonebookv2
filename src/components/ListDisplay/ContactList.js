@@ -56,7 +56,7 @@ export default function ContactList(props) {
     <div className={classes.root}>
       <List className={classes.list}>
         {
-          props.data.contacts.sort((a, b) => a.name > b.name ? 1 : -1).map((el, index, arr) => {
+          props.data.contacts.length ? props.data.contacts.sort((a, b) => a.name > b.name ? 1 : -1).map((el, index, arr) => {
             return (
               <ListItemLogic 
                 index={index} 
@@ -67,9 +67,8 @@ export default function ContactList(props) {
                 handleUpdate={props.handleUpdate}
               />
             )
-          })
+          }) : <h2>None Items</h2>
         }
-        
       </List>
     </div>
   )
