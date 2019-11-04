@@ -9,10 +9,6 @@ import SyncStore from './SyncStore'
 
 
 function App() {
-  useEffect(() => {
-    console.log(localStorage)
-  })
-
   const [state, setState] = useState({
     contacts: localStorage.data ? JSON.parse(localStorage.data) : [],
     isSearch: false,
@@ -139,6 +135,7 @@ function App() {
         search: state.search
       }
     })
+    SyncStore(state.contacts)
   }
 
   const handleExport = () => {

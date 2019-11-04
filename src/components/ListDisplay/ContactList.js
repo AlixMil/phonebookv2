@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core'
 import List from '@material-ui/core/List'
 import ListItemLogic from './ListItemLogic';
-
+import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied'; 
 
   const useStyles = makeStyles(theme => ({
     root: {
@@ -12,6 +12,7 @@ import ListItemLogic from './ListItemLogic';
       backgroundColor: theme.palette.background.paper,
     },
     list: {
+      width: '600px',
       borderLeft: '2px solid #f5f1f0',
       borderRight: '2px solid #f5f1f0',
       borderBottom: '2px solid #f5f1f0',
@@ -46,6 +47,9 @@ import ListItemLogic from './ListItemLogic';
       alignItems: 'center',
       alignContent: 'center',
       alignSelf: 'center'
+    },
+    headNull: {
+      margin: '4px'
     }
   }));
 
@@ -67,7 +71,11 @@ export default function ContactList(props) {
                 handleUpdate={props.handleUpdate}
               />
             )
-          }) : <h2>None Items</h2>
+          }) : 
+          <div>
+            <h3 className={classes.headNull} >None Items</h3>
+            <SentimentVeryDissatisfiedIcon color='disabled' fontSize='large' />
+          </div>
         }
       </List>
     </div>
