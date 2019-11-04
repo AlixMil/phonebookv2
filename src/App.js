@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Header from './components/HeaderDisplay/Header'
 import AddPaper from './components/Add/AddPaper'
@@ -153,7 +153,7 @@ function App() {
     const collection = JSON.stringify(state.contacts)
     console.log(collection)
     let blob = new File([collection], {type: 'text/json;charset=utf-8'})
-    saveAs(blob, 'contacts' + ' ' + Date.now() + '.json')
+    saveAs(blob, 'contacts ' + Date.now() + '.json')
   }
 
   const handleChangeSort = (bool) => {
