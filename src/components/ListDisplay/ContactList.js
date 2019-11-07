@@ -73,7 +73,7 @@ export default function ContactList(props) {
             )
           }) : 
           <div>
-            <h3 className={classes.headNull} >None Items</h3>
+            <h3 className={classes.headNull}>None Items</h3>
             <SentimentVeryDissatisfiedIcon color='disabled' fontSize='large' />
           </div> : props.data.contacts.map((el, index, arr) => {
             return (

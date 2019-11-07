@@ -170,7 +170,7 @@ function App() {
       <Header import={handleImport} export={handleExport} search={handleSearch} />
       <AddPaper handleAdd={handleAdd} />
       <ContactList isSort={state.isSort} change={handleChange} delete={handleDelete} data={state}/>
-      <SwitchSort isSort={state.isSort} changeSort={handleChangeSort}/>
+      <SwitchSort isShow={state.contacts.length} isSort={state.isSort} changeSort={handleChangeSort}/>
     </div>
   );
 }

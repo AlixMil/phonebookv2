@@ -16,11 +16,13 @@ export default function SwitchSort(props) {
   const classes = useStyles()
 
   return (
-      <FormControlLabel className={classes.root}
-        control={
-          <Switch checked={props.isSort} onChange={() => props.changeSort(!props.isSort)} value="sort" />
-        }
-        label="On|Off sorting contacts"
-      />
+      props.isShow >= 2 ? (
+          <FormControlLabel className={classes.root}
+          control={
+            <Switch checked={props.isSort} onChange={() => props.changeSort(!props.isSort)} value="sort" />
+          }
+          label="On|Off sorting contacts"
+        />
+        ) : false
   );
 }
