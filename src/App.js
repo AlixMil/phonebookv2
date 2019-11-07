@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Header from './components/HeaderDisplay/Header'
 import AddPaper from './components/Add/AddPaper'
@@ -12,9 +12,10 @@ import SyncStore from './SyncStore'
 function App() {
   const [state, setState] = useState({
     contacts: localStorage.data ? JSON.parse(localStorage.data) : [],
+    search: [],
+    sort: [],
     isSearch: false,
-    isSort: true,
-    search: []
+    isSort: false
   })
 
   const handleDelete = index => {
@@ -23,6 +24,7 @@ function App() {
       return {
         contacts: state.contacts.filter((_, i) => i === index ? false : true),
         search: state.search,
+        sort: state.sort,
         isSort: state.isSort,
         isSearch: state.isSearch
       }
@@ -44,18 +46,18 @@ function App() {
   const handleChange = (index, nameInp, numberInp) => {
     if (nameInp && numberInp) {
       setState(state => {
-        const res = state.contacts.map(( { name, number, updDate } , id) => {
+        const res = state.contacts.map(( { name, number } , id) => {
           if (id === index) {
             return {
               name: nameInp[0].toUpperCase() + nameInp.slice(1),
               number: numberInp[0].toUpperCase() + numberInp.slice(1),
-              updDate: new Date()
+              // updDate: new Date()
             }
           }
           return {
               name: name,
               number: number,
-              updDate: new Date()
+              // updDate: new Date()
           }
         })
         return {
@@ -68,18 +70,18 @@ function App() {
       SyncStore(state.contacts)
     } else if (nameInp) {
       setState(state => {
-        const res = state.contacts.map(( { name, number, updDate } , id) => {
+        const res = state.contacts.map(( { name, number } , id) => {
           if (id === index) {
             return {
               name: nameInp[0].toUpperCase() + nameInp.slice(1),
               number: number,
-              updDate: new Date()
+              // updDate: new Date()
             }
           }
           return {
               name: name,
               number: number,
-              updDate: new Date()
+              // updDate: new Date()
           }
         })
         SyncStore(res)
@@ -92,18 +94,18 @@ function App() {
       })
     } else if (numberInp) {
       setState(state => {
-        const res = state.contacts.map(( { name, number, updDate } , id) => {
+        const res = state.contacts.map(( { name, number } , id) => {
           if (id === index) {
             return {
               name: name,
               number:  numberInp[0].toUpperCase() + numberInp.slice(1),
-              updDate: new Date()
+              // updDate: new Date() 
             }
           }
           return {
               name: name,
               number: number,
-              updDate: new Date()
+              // updDate: new Date()
           }
         })
         SyncStore(res)
@@ -121,7 +123,7 @@ function App() {
   const handleAdd = (name, number) => {
     if (name.trim() && number.trim()) {
       setState(state => {
-        state.contacts.push({name: name, number: number, updDate: undefined})
+        state.contacts.push({name: name, number: number, created: Date.now().toString()})
         return {
         contacts: state.contacts,
         isSearch: state.isSearch,
@@ -134,15 +136,16 @@ function App() {
 
   const handleImport = (json) => {
     console.log('import')
-    // console.log(JSON.parse(json)
     setState(state => {
       json.forEach((el, id) => {
+        el.created = Date.now().toString()
         state.contacts.push(json[id])
       })
       return {
         contacts: state.contacts,
         isSearch: state.isSearch,
         search: state.search,
+        sort: state.sort,
         isSort: state.isSort
       }
     })
@@ -157,11 +160,12 @@ function App() {
   }
 
   const handleChangeSort = (bool) => {
-    setState(state => ({
-      contacts: state.contacts,
-      isSearch: state.isSearch,
+    setState(prevState => ({
+      contacts: prevState.contacts,
+      isSearch: prevState.isSearch,
+      sort: prevState.contacts.sort((a, b) => a.name < b.name ? -1 : 1),
       isSort: bool,
-      search: state.search
+      search: prevState.search
     }))
   }
 

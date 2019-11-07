@@ -6,9 +6,14 @@ import Switch from '@material-ui/core/Switch';
 const useStyles = makeStyles(theme => ({
   root: {
     position: 'static',
-    // right: '0',
     bottom: '0',
-
+    margin: '16px',
+    opacity: .4,
+    transition: '0.4s',
+    cursor: 'pointer',
+    '&:hover': {
+      opacity: 1
+    }
   }
 }))
 
@@ -16,13 +21,11 @@ export default function SwitchSort(props) {
   const classes = useStyles()
 
   return (
-      props.isShow >= 2 ? (
-          <FormControlLabel className={classes.root}
+        <FormControlLabel className={classes.root}
           control={
-            <Switch checked={props.isSort} onChange={() => props.changeSort(!props.isSort)} value="sort" />
+          <Switch disabled={props.isShow <= 1} checked={props.isSort} onChange={() => props.changeSort(!props.isSort)} value="sort" />
           }
-          label="On|Off sorting contacts"
+          label="On | Off sorting contacts"
         />
-        ) : false
   );
 }

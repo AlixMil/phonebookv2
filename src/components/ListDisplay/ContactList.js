@@ -60,7 +60,20 @@ export default function ContactList(props) {
     <div className={classes.root}>
       <List className={classes.list}>
         {
-          props.isSort ? props.data.contacts.length ? props.data.contacts.sort((a, b) => a.name > b.name ? 1 : -1).map((el, index, arr) => {
+          props.isSort ? props.data.sort.map((el, index, arr) => {
+            return (
+              <ListItemLogic 
+                index={index} 
+                classes={classes} 
+                element={el}
+                delete={props.delete}
+                change={props.change}
+                handleUpdate={props.handleUpdate}
+              />
+            )
+          }) 
+          : 
+          props.data.contacts.length ? props.data.contacts.map((el, index, arr) => {
             return (
               <ListItemLogic 
                 index={index} 
@@ -75,18 +88,7 @@ export default function ContactList(props) {
           <div>
             <h3 className={classes.headNull}>None Items</h3>
             <SentimentVeryDissatisfiedIcon color='disabled' fontSize='large' />
-          </div> : props.data.contacts.map((el, index, arr) => {
-            return (
-              <ListItemLogic 
-                index={index} 
-                classes={classes} 
-                element={el}
-                delete={props.delete}
-                change={props.change}
-                handleUpdate={props.handleUpdate}
-              />
-            )
-          })
+          </div>
         }
       </List>
     </div>

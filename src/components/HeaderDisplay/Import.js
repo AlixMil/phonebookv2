@@ -33,18 +33,16 @@ export default function Import(props) {
     const reader = new FileReader()
 
     reader.readAsText(file)
-    // setState({isLoad: true})
-    // console.log(file.name)
     reader.onload = () => {
       console.log(reader.result)
-      // console.log(JSON.parse(reader.result))
-      // setState(({ file: reader.result }))
-      props.import(JSON.parse(reader.result))
-      props.toggleImport()
-    }
-
-    reader.onerror = () => {
-      console.log('error')
+      try {
+        props.import(JSON.parse(reader.result))
+        console.log(JSON.parse(reader.result))
+        props.toggleImport()
+      } catch (e) {
+        console.log(e)
+        alert(e)
+      }
     }
   }
 
