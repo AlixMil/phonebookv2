@@ -49,7 +49,20 @@ import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissa
       alignSelf: 'center'
     },
     headNull: {
-      margin: '4px'
+      margin: '4px',
+      cursor: 'pointer'
+    },
+    smile: {
+      cursor: 'pointer',
+      transition: '.3s',
+      '&:hover': {
+        color: 'black'
+      }
+    },
+    smileWrapper: {
+      '&:hover': {
+        // backgroundColor: 'green'
+      }
     }
   }));
 
@@ -85,9 +98,9 @@ export default function ContactList(props) {
               />
             )
           }) : 
-          <div>
+          <div className={classes.smileWrapper}>
             <h3 className={classes.headNull}>None Items</h3>
-            <SentimentVeryDissatisfiedIcon color='disabled' fontSize='large' />
+            <SentimentVeryDissatisfiedIcon color='disabled' fontSize='large' className={classes.smile} />
           </div>
         }
       </List>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Header from './components/HeaderDisplay/Header'
 import AddPaper from './components/Add/AddPaper'
@@ -15,7 +15,7 @@ function App() {
     search: [],
     sort: [],
     isSearch: false,
-    isSort: false
+    isSort: localStorage.isSort ? JSON.parse(localStorage.isSort) : false 
   })
 
   const handleDelete = index => {
@@ -160,13 +160,16 @@ function App() {
   }
 
   const handleChangeSort = (bool) => {
-    setState(prevState => ({
-      contacts: prevState.contacts,
-      isSearch: prevState.isSearch,
-      sort: prevState.contacts.sort((a, b) => a.name < b.name ? -1 : 1),
-      isSort: bool,
-      search: prevState.search
-    }))
+    setState(prevState => {
+      const sortingState = prevState.contacts.slice(0)
+      localStorage.isSort = JSON.stringify(bool)
+      return {
+        contacts: prevState.contacts,
+        isSearch: prevState.isSearch,
+        sort: sortingState.sort((a, b) => a.name < b.name ? -1 : 1),
+        isSort: bool,
+        search: prevState.search
+      }})
   }
 
   return (

@@ -50,35 +50,29 @@ export default function AddPaper(props) {
     if (name === 'name') {
       setState(state => ({ name: value, number: state.number }))
     } else {
-      setState(state => ({ name: state.name, number: value }))
+      if (!isNaN(value)) {
+        setState(state => ({ name: state.name, number: value }))
+      }
     }
   }
-
 
   return (
     <Paper className={classes.root}>
       <div className={classes.wrapper}>
-
-        {/* <Typography variant="h4" component="h3"> */}
-          {/* Add Contact */}
-        {/* </Typography> */}
         <Typography >
           <h2>Add Contact</h2>
           <TextField 
-            // variant="filled"
-            // helperText='Введите имя'
-            // error={true}
             label='name'
             name='name'
             value={state.name}
+            onKeyDown={(e) => e.keyCode === 13 ? handleChange(e.target) : false}
             onChange={(e) => handleChange(e.target)}
           />
           <TextField 
-            // helperText='и номер телефона'
-            // variant="filled"
             name='number'
             label='number'
             value={state.number}
+            onKeyDown={(e) => e.keyCode === 13 ? handleChange(e.target) : false}
             onChange={(e) => handleChange(e.target)}
           />
           <Tooltip title="Add Contact">
@@ -90,7 +84,6 @@ export default function AddPaper(props) {
           </Button>
           </Tooltip>
         </Typography>
-        
       </div>
     </Paper>
   )
