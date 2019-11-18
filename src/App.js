@@ -3,7 +3,6 @@ import './App.css';
 import Header from './components/HeaderDisplay/Header'
 import AddPaper from './components/Add/AddPaper'
 import ContactList from './components/ListDisplay/ContactList'
-import SwitchSort from './components/SwitchSort'
 import { saveAs } from 'file-saver'
 
 import SyncStore from './SyncStore'
