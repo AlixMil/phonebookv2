@@ -64,10 +64,8 @@ export default function Header(props) {
                 <SideList export={props.export} toggleImport={toggleImport} toggleDrawer={toggleDrawer}/> 
               </Drawer>
             </IconButton>
-          {/* <Typography align='center'  variant='h5' className={classes.title}> */}
             <h2>Phone Book</h2>
-          {/* </Typography> */}
-          <Search />
+          <Search search={props.handleSearch} />
         </Toolbar>
       </AppBar>
       <Import import={props.import} export={props.export} state={state} toggleImport={toggleImport} />

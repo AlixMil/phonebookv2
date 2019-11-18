@@ -69,39 +69,37 @@ import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissa
 export default function ContactList(props) {
   const classes = useStyles();
 
+  const renderLogic = () => {
+    if (!props.data.search.length) {
+      if (props.data.contacts.length) {
+        return props.data.contacts.map((el, index, arr) => {
+          return (
+            <ListItemLogic
+              index={index} 
+              classes={classes} 
+              element={el}
+              delete={props.delete}
+              change={props.change}
+              handleUpdate={props.handleUpdate}
+            />
+          )
+        })
+      } else {
+        return (
+          <div className={classes.smileWrapper}>
+                <h3 className={classes.headNull}>None Items</h3>
+                <SentimentVeryDissatisfiedIcon color='disabled' fontSize='large' className={classes.smile} />
+          </div>
+        )
+      }
+    }
+  }
+
   return (
     <div className={classes.root}>
       <List className={classes.list}>
         {
-          props.isSort ? props.data.sort.map((el, index, arr) => {
-            return (
-              <ListItemLogic 
-                index={index} 
-                classes={classes} 
-                element={el}
-                delete={props.delete}
-                change={props.change}
-                handleUpdate={props.handleUpdate}
-              />
-            )
-          }) 
-          : 
-          props.data.contacts.length ? props.data.contacts.map((el, index, arr) => {
-            return (
-              <ListItemLogic 
-                index={index} 
-                classes={classes} 
-                element={el}
-                delete={props.delete}
-                change={props.change}
-                handleUpdate={props.handleUpdate}
-              />
-            )
-          }) : 
-          <div className={classes.smileWrapper}>
-            <h3 className={classes.headNull}>None Items</h3>
-            <SentimentVeryDissatisfiedIcon color='disabled' fontSize='large' className={classes.smile} />
-          </div>
+          renderLogic()
         }
       </List>
     </div>

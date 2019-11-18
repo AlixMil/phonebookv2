@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, createElement } from 'react';
 import './App.css';
 import Header from './components/HeaderDisplay/Header'
 import AddPaper from './components/Add/AddPaper'
@@ -24,8 +24,6 @@ function App() {
       return {
         contacts: state.contacts.filter((_, i) => i === index ? false : true),
         search: state.search,
-        sort: state.sort,
-        isSort: state.isSort,
         isSearch: state.isSearch
       }
     })
@@ -38,6 +36,7 @@ function App() {
             contacts: state.contacts,
             isSearch: true,
             search: state.contacts.filter(e => e.name.toLowerCase() === searchTerm.toLowerCase()),
+            sort: state.sort,
             isSort: state.isSort
           }
       })
@@ -177,7 +176,6 @@ function App() {
       <Header import={handleImport} export={handleExport} search={handleSearch} />
       <AddPaper handleAdd={handleAdd} />
       <ContactList isSort={state.isSort} change={handleChange} delete={handleDelete} data={state}/>
-      <SwitchSort isShow={state.contacts.length} isSort={state.isSort} changeSort={handleChangeSort}/>
     </div>
   );
 }
